@@ -1,0 +1,67 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.11'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id "org.openapi.generator" version "6.3.0"
+}
+
+group = 'nl.dsh'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'javax.validation:validation-api:2.0.1.Final'
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//	runtimeOnly 'org.postgresql:postgresql'
+	implementation 'org.postgresql:r2dbc-postgresql:1.0.1.RELEASE'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+openApiGenerate {
+	generatorName = "spring"
+	library = "spring-boot"
+	inputSpec = "$rootDir/API-spec/spec.yml".toString()
+	outputDir = "$rootDir".toString()
+	apiPackage = "nl.dsh.api.interfaces"
+	invokerPackage = "nl.dsh.api"
+	modelPackage = "nl.dsh.api.dao"
+	configOptions = [
+			dateLibrary: "java8",
+			interfaceOnly: "true",
+			requestMappingMode: "api_interface",
+			skipDefaultInterface: "true",
+			serializableModel: "true",
+			useOptional: "true",
+			booleanGetterPrefix: "is",
+			documentationProvider: "source",
+			"reactive": "true"
+	]
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
