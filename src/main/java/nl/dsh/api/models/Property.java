@@ -27,14 +27,14 @@ public class Property {
     private String coverImgUrl;
     private LocalDateTime published;
     private float rent;
-    private boolean rentIncl;
+    private String rentIncl;
     private int sqm;
     private String postalCode;
-    private enum Type {
-        ROOM,
-        APARTMENT,
-        STUDIO,
-        OTHER
-    }
-    private Type type;
+//    private enum Type {
+//        ROOM,
+//        APARTMENT,
+//        STUDIO,
+//        OTHER
+//    }
+    private String type;
 }
