@@ -22,4 +22,6 @@ public class R2DBCConfiguration extends AbstractR2dbcConfiguration {
                 .database(System.getenv("DSH_DB"))
                 .build());
     }
+
+
 }

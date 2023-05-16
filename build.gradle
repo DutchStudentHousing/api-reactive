@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'javax.validation:validation-api:2.0.1.Final'
 	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+	implementation 'org.modelmapper:modelmapper:3.0.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 //	runtimeOnly 'org.postgresql:postgresql'
@@ -37,6 +38,19 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+// fat jars for packaging in docker container
+jar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	manifest {
+		attributes "Main-Class": "nl.dsh.api.ApiApplication"
+	}
+	from {
+		configurations.runtimeClasspath.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
 }
 
 openApiGenerate {
@@ -61,6 +75,7 @@ openApiGenerate {
 }
 
 compileJava.dependsOn tasks.openApiGenerate
+processResources.dependsOn tasks.openApiGenerate
 
 tasks.named('test') {
 	useJUnitPlatform()
