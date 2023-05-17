@@ -25,9 +25,16 @@ public class PropertiesController implements PropertiesApi {
     }
 
     @Override
-    public Mono<ResponseEntity<Flux<Property>>> getProperties(Optional<String> city, Optional<Float> lat, Optional<Float> _long, Optional<Float> distance,
-                                                              Optional<Integer> perPage, Optional<Integer> page, Optional<String> orderBy,
-                                                              Optional<Float> min, Optional<Float> max, final ServerWebExchange exchange) { //TODO: switch exchange to an implementation
+    public Mono<ResponseEntity<Flux<Property>>> getProperties(Optional<String> city,
+                                                              Optional<Float> lat,
+                                                              Optional<Float> _long,
+                                                              Optional<Float> distance,
+                                                              Optional<Integer> perPage,
+                                                              Optional<Integer> page,
+                                                              Optional<String> orderBy,
+                                                              Optional<Float> min,
+                                                              Optional<Float> max,
+                                                              final ServerWebExchange exchange) {
         log.info("GET /properties");
         return Mono.just(ResponseEntity.ok(svc.listProperties()));
     }
