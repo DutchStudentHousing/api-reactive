@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.codec.Encoder;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class CsvEncoder<T> implements Encoder<T> {
 
     private final List<Class<?>> compatibleTypes;
@@ -53,6 +55,7 @@ public class CsvEncoder<T> implements Encoder<T> {
 
     @Override
     public Flux<DataBuffer> encode(Publisher<? extends T> inputStream, DataBufferFactory bufferFactory, ResolvableType elementType, MimeType mimeType, Map<String, Object> hints) {
+        log.info("Start encoding to CSV");
         CsvSchema schema = mapper.schemaFor(elementType.resolve());
         return Flux.from(inputStream)
                 .switchOnFirst((signal, flux) ->
@@ -79,6 +82,7 @@ public class CsvEncoder<T> implements Encoder<T> {
     @Override
     public DataBuffer encodeValue(T value, DataBufferFactory bufferFactory, ResolvableType valueType, MimeType mimeType, Map<String, Object> hints) {
 //        return Encoder.super.encodeValue(value, bufferFactory, valueType, mimeType, hints);
+        log.info("Encoding single item to CSV");
         DataBuffer buf = bufferFactory.allocateBuffer();
         CsvSchema schema = mapper.schemaFor(valueType.resolve()).withHeader();
         SequenceWriter writer = mapper.writer().with(schema).writeValues(buf.asOutputStream());

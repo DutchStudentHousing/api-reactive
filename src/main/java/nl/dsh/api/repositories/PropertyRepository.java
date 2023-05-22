@@ -8,6 +8,6 @@ import reactor.core.publisher.Flux;
 
 @Repository
 public interface PropertyRepository extends R2dbcRepository<Property,String> {
-    @Query("SELECT * FROM property")
-    Flux<Property> getAllProperties();
+//    @Query("SELECT * FROM property")
+//    Flux<Property> getAllProperties();
 }
