@@ -1,5 +1,13 @@
+# build stage
+FROM gradle:latest AS BUILD
+WORKDIR /app/
+COPY . .
+RUN gradle build
+
+# package stage
 FROM adoptopenjdk/openjdk11
 LABEL authors="dsh"
 WORKDIR /app
-COPY build/libs/api-0.0.1-SNAPSHOT.jar /app/api.jar
-ENTRYPOINT ["java", "-jar", "api.jar"]
+COPY --from=BUILD /app/build/libs/* .
+EXPOSE 3000
+ENTRYPOINT ["java", "-jar", "api-0.0.1-SNAPSHOT.jar"]
