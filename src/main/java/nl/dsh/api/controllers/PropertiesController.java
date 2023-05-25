@@ -36,6 +36,7 @@ public class PropertiesController implements PropertiesApi {
                                                               Optional<Float> max,
                                                               final ServerWebExchange exchange) {
         log.info("GET /properties");
-        return Mono.just(ResponseEntity.ok(svc.listProperties()));
+        log.info(String.format("max = %s", max));
+        return Mono.just(ResponseEntity.ok(svc.listProperties(max)));
     }
 }
