@@ -1,7 +1,8 @@
 # build stage
 FROM gradle:latest AS BUILD
 WORKDIR /app/
-COPY . .
+# COPY . .
+RUN git clone https://github.come/DutchStudentHousing/api-reactive.git --recursive
 RUN gradle build
 
 # package stage

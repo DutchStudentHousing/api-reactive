@@ -1,11 +1,15 @@
 package nl.dsh.api.services;
 
+import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.dao.Property;
 import nl.dsh.api.repositories.PropertyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import org.springframework.data.domain.Sort;
 import reactor.core.publisher.Mono;
 
 import java.time.OffsetDateTime;
@@ -15,6 +19,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class PropertyService {
     private final PropertyRepository repo;
     private final ModelMapper mapper;
@@ -25,14 +30,13 @@ public class PropertyService {
         this.mapper = mapper;
     }
 
-    public Flux<Property> listProperties(Optional<Float> maxRent) {
-        Function<nl.dsh.api.models.Property,Property> conv = p ->
-                mapper.map(p, Property.class);
-        return maxRent
-                .map(aFloat ->
-                        repo.findAllByRentLessThan(aFloat).map(conv))
-                .orElseGet(() ->
-                        repo.findAll().map(conv));
+
+    public Flux<Property> listProperties(Optional<String> city, Optional<Float> minRent, Optional<Float> maxRent, Pageable pageable) {
+        return repo.findAllBy(city.orElse(null),
+                minRent.orElse(Float.NEGATIVE_INFINITY),
+                maxRent.orElse(Float.POSITIVE_INFINITY),
+                pageable.getPageNumber(),
+                pageable.getPageSize()).map(p -> mapper.map(p, Property.class));
     }
 
     private String capitalize(String in) {
