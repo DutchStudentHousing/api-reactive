@@ -12,6 +12,8 @@ import org.springframework.data.relational.core.mapping.Table;
 
 //import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 @Data
@@ -44,7 +46,7 @@ public class Property {
     private int sqm;
     @Column("postal_code")
     private String postalCode;
-    private enum TypeEnum {
+    public enum TypeEnum {
         Room,
         Apartment,
         Studio,
@@ -54,6 +56,6 @@ public class Property {
     }
 
     @Column("type")
-//    @Enumerated(EnumType.STRING)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TypeEnum type;
 }
