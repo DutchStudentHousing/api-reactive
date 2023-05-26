@@ -2,6 +2,7 @@ package nl.dsh.api.services;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.dao.Property;
+import nl.dsh.api.repositories.PropertyFilter;
 import nl.dsh.api.repositories.PropertyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,9 @@ public class PropertyService {
     }
 
 
-    public Flux<Property> listProperties(Optional<String> city, Optional<Float> minRent, Optional<Float> maxRent, Pageable pageable) {
-        return repo.findAllBy(city.orElse(null),
-                minRent.orElse(Float.NEGATIVE_INFINITY),
-                maxRent.orElse(Float.POSITIVE_INFINITY),
-                pageable.getPageNumber(),
-                pageable.getPageSize()).map(p -> mapper.map(p, Property.class));
+    public Flux<Property> listProperties(PropertyFilter filter, Pageable pageable) {
+        return repo.findAllBy(filter, pageable)
+                .map(p -> mapper.map(p, Property.class));
     }
 
     private String capitalize(String in) {

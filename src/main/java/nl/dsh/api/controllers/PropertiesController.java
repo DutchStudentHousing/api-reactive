@@ -3,6 +3,7 @@ package nl.dsh.api.controllers;
 import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.dao.Property;
 import nl.dsh.api.interfaces.PropertiesApi;
+import nl.dsh.api.repositories.PropertyFilter;
 import nl.dsh.api.services.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +37,8 @@ public class PropertiesController implements PropertiesApi {
                                                               final ServerWebExchange exchange,
                                                               final Pageable pageable) {
         log.info("GET /properties");
-        log.info(String.format("max = %s", max));
-        return Mono.just(ResponseEntity.ok(svc.listProperties(city, min, max, pageable)));
+//        log.info(String.format("max = %s", max));
+        return Mono.just(ResponseEntity.ok(svc.listProperties(
+                new PropertyFilter(city, min, max, lat, _long, distance), pageable)));
     }
 }

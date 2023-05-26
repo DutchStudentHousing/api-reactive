@@ -1,33 +1,53 @@
 package nl.dsh.api.repositories;
 
+import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.models.Property;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.r2dbc.repository.Query;
-import org.springframework.data.r2dbc.repository.R2dbcRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.data.repository.reactive.ReactiveSortingRepository;
+import org.springframework.data.r2dbc.core.R2dbcEntityOperations;
+import org.springframework.data.relational.core.query.Criteria;
+import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import java.util.Optional;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 @Repository
-public interface PropertyRepository extends ReactiveSortingRepository<Property,String> {
-    @Query("SELECT * FROM Property p WHERE " +
-    "(:city is null or p.city = :city)" +
-    "AND (p.rent >= :minRent)" +
-    "AND (p.rent <= :maxRent)" +
-    "LIMIT :size OFFSET :page * :size"
-    )
-    Flux<Property> findAllBy(@Param("city") String city,
-                             @Param("minRent") float minRent,
-                             @Param("maxRent") float maxRent,
-                             @Param("page") int page,
-                             @Param("size") int size);
-//    Flux<Property> findAllByCity(Optional<String> city, Pageable pageable);
-//    Flux<Property> findAllByRentBetween(Optional<Float> min, Optional<Float> max, Pageable pageable);
+@Slf4j
+public class PropertyRepository {
+
+    private final R2dbcEntityOperations entityOperations;
+
+    public PropertyRepository(R2dbcEntityOperations entityOperations) {
+        this.entityOperations = entityOperations;
+    }
+
+    public Flux<Property> findAllBy(PropertyFilter filter, Pageable pageable) {
+        float distance = filter.distance.orElse(11.11f)/111.1f; // default to 100m accuracy?
+
+        Criteria search = Criteria.empty();
+        if(filter.maxRent.isPresent() || filter.minRent.isPresent())
+            search = search.and(Criteria.where("rent").between(
+                    filter.minRent.orElse(Float.NEGATIVE_INFINITY),
+                    filter.maxRent.orElse(Float.POSITIVE_INFINITY)));
+        if(filter.city.isPresent())
+            search = search.and(Criteria.where("city").like(filter.city.get()));
+        if(filter.lat.isPresent() || filter._long.isPresent())
+            search = search.and(Criteria.where("lat").between(
+                    filter.lat.orElse(Float.NEGATIVE_INFINITY)-distance,
+                    filter.lat.orElse(Float.POSITIVE_INFINITY)+distance
+            )).and(Criteria.where("long").between(
+                    filter._long.orElse(Float.NEGATIVE_INFINITY)-distance,
+                    filter._long.orElse(Float.POSITIVE_INFINITY)+distance
+            ));
+        log.info(search.toString());
+        return entityOperations.select(Property.class)
+                .matching(Query.query(search
+                        ).sort(pageable.getSort())
+                        .with(pageable)
+                ).all();
+    }
 }
