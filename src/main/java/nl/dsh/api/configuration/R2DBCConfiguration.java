@@ -7,7 +7,10 @@ import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
+import org.springframework.data.r2dbc.convert.R2dbcCustomConversions;
+import org.springframework.data.r2dbc.mapping.R2dbcMappingContext;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import org.springframework.data.relational.core.mapping.NamingStrategy;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,5 +38,15 @@ public class R2DBCConfiguration extends AbstractR2dbcConfiguration {
                 .build());
     }
 
+    @Bean
+    public R2dbcMappingContext r2dbcMappingContext(Optional<NamingStrategy> namingStrategy,
+                                                   R2dbcCustomConversions r2dbcCustomConversions) {
+//        assert namingStrategy != null;
+        R2dbcMappingContext context = new R2dbcMappingContext(namingStrategy
+                .orElse(NamingStrategy.INSTANCE));
+        context.setSimpleTypeHolder(r2dbcCustomConversions.getSimpleTypeHolder());
+        context.setForceQuote(true);
 
+        return context;
+    }
 }

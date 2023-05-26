@@ -10,4 +10,5 @@ import reactor.core.publisher.Flux;
 public interface PropertyRepository extends R2dbcRepository<Property,String> {
 //    @Query("SELECT * FROM property")
 //    Flux<Property> getAllProperties();
+    Flux<Property> findAllByRentLessThan(float rent);
 }

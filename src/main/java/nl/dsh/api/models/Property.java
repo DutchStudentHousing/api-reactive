@@ -5,92 +5,55 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+//import org.springframework.data.annotation.
 
-import javax.persistence.Column;
+//import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+//@Entity
+
 @Table(name = "property")
 public class Property {
     @Id
-    @Column(name = "property_id")
+    @Column("property_id")
     private String id;
-    @Column(name = "name")
+    @Column("name")
     private String name;
-    @Column(name = "city")
+    @Column("city")
     private String city;
-    @Column(name = "lat")
+    @Column("lat")
     private float lat;
-    @Column(name = "long")
+    @Column("long")
     private float _long;
-    @Column(name = "cover_img_url")
+    @Column("cover_image_url")
     private String img;
-    @Column(name = "date_published")
+    @Column("date_published")
     private LocalDateTime datePublished;
-    @Column(name = "rent")
+    @Column("rent")
     private float rent;
-    @Column(name = "rent_incl")
+    @Column("rent_incl")
     private boolean rentIncl;
-    @Column(name = "sqm")
+    @Column("sqm")
     private int sqm;
-    @Column(name = "postal_code")
+    @Column("postal_code")
     private String postalCode;
     private enum TypeEnum {
         Room,
         Apartment,
         Studio,
-        Anti_squat,
-        Student_residence,
+        AntiSquat,
+        StudentResidence,
         Other
     }
 
-//    public enum TypeEnum {
-//        ROOM("Room"),
-//
-//        APARTMENT("Apartment"),
-//
-//        STUDIO("Studio"),
-//
-//        ANTI_SQUAT("Anti-squat"),
-//
-//        STUDENT_RESIDENCE("Student residence"),
-//
-//        OTHER("Other");
-//
-//        private String value;
-//
-//        TypeEnum(String value) {
-//            this.value = value;
-//        }
-//
-//        @JsonValue
-//        public String getValue() {
-//            return value;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return String.valueOf(value);
-//        }
-//
-//        @JsonCreator
-//        public static TypeEnum fromValue(String value) {
-//            for (TypeEnum b : TypeEnum.values()) {
-//                if (b.value.equals(value)) {
-//                    return b;
-//                }
-//            }
-//            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-//        }
-//    }
-
-
-    @Column(name = "type")
+    @Column("type")
+//    @Enumerated(EnumType.STRING)
     private String type;
 }
