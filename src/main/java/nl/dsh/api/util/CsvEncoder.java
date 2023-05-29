@@ -1,6 +1,5 @@
 package nl.dsh.api.util;
 
-import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.SequenceWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvGenerator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -39,7 +38,8 @@ public class CsvEncoder<T> implements Encoder<T> {
                 MessageFrom.class,
                 PostMessageRequest.class,
                 Property.class,
-                Stats.class
+                Stats.class,
+                KnownvaluesGet200Response.class
         });
         mapper = CsvMapper.builder()
                 .enable(CsvGenerator.Feature.ALWAYS_QUOTE_EMPTY_STRINGS)
