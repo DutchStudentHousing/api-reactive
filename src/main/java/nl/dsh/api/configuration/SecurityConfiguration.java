@@ -1,11 +1,18 @@
 package nl.dsh.api.configuration;
 
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.web.SecurityFilterChain;
-//import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
+@Configuration
+@EnableWebFluxSecurity
 public class SecurityConfiguration {
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -18,4 +25,13 @@ public class SecurityConfiguration {
 //        return http.authorizeHttpRequests((authorize) -> authorize
 //                .anyRequest().permitAll()).build();
 //    }
+    @Bean
+    public MapReactiveUserDetailsService userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("user")
+                .roles("USER")
+                .build();
+        return new MapReactiveUserDetailsService(user);
+    }
 }
