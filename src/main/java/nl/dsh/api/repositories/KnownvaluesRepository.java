@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface KnownvaluesRepository extends ReactiveCrudRepository<KnownValues, Object> {
     @Query(value="SELECT MIN(p.rent) AS minRent, "+
-            " MAX(p.rent) as maxRent, "+
+            "MAX(p.rent) as maxRent, "+
             "ARRAY(SELECT DISTINCT p.city FROM property p) as cities, "+
             "MIN(p.sqm) as minSqm, "+
             "MAX(p.sqm) as maxSqm "+

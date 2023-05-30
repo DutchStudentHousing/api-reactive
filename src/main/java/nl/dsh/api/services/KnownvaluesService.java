@@ -21,6 +21,7 @@ public class KnownvaluesService {
     }
 
     public Mono<KnownvaluesGet200Response> getKnownValues() {
-        return repo.getKnownValues().log().map(m -> mapper.map(m, KnownvaluesGet200Response.class));
+        return repo.getKnownValues()
+                .map(it -> mapper.map(it, KnownvaluesGet200Response.class));
     }
 }
