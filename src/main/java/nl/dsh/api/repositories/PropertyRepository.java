@@ -14,9 +14,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Repository
 @Slf4j
@@ -98,7 +96,7 @@ public class PropertyRepository {
                                 .gender(row.get("gender", PropertyMatch.GenderType.class))
                                 .minAge(row.get("age_min", Long.class))
                                 .maxAge(row.get("age_max", Long.class))
-                                .matchStatus(row.get("match_status", List.class))
+                                .matchStatus(row.get("match_status", PropertyMatch.MatchStatusType[].class))
                                 .build())
                         .build()
                 ).first();
