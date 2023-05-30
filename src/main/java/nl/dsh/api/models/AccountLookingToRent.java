@@ -21,6 +21,7 @@ public class AccountLookingToRent {
     @Column("gender") //Enum?
     private String gender;
     //TODO: Implement status in table?
+
     /*
     public enum StatusEnum{
         Student,

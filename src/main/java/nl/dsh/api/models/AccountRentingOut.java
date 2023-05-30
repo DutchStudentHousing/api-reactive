@@ -13,10 +13,11 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @Table("user_rents_out_property")
 public class AccountRentingOut {
+    //Many to one? many account renting out point to one account.
     @Id
     @Column("uid")
     private int id;
-
+    //one to one?
     @Column("property_id")
             //@Foreign key?
     private String propertyId;

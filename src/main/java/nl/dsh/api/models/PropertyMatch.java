@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @Table("property_match")
 public class PropertyMatch {
+    //Relation one to one
     @Column("property_Id")
     private String propertyId;
     @Id

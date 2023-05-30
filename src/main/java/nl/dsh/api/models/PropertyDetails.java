@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table("property_details")
 public class PropertyDetails {
-
+    //Relation one to one?
     @Column("property_id")
     private String propertyId;
     @Id

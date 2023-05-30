@@ -13,10 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table("message")
 public class Message {
+    @Id
     @Column("message_id")
     private int messageId;
+    //Relation one to one?
     @Column("sender_id")
     private int senderId;
+    //Relation one to one?
     @Column("receiver_id")
     private int receiverId;
     @Column("property_id") //
