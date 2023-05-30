@@ -1,6 +1,7 @@
 package nl.dsh.api.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "property")
 public class Property {
     @Id
@@ -24,19 +26,19 @@ public class Property {
     @Column("city")
     private String city;
     @Column("lat")
-    private float lat;
+    private Float lat;
     @Column("long")
-    private float _long;
+    private Float _long;
     @Column("cover_image_url")
     private String img;
     @Column("date_published")
     private LocalDateTime datePublished;
     @Column("rent")
-    private float rent;
+    private Float rent;
     @Column("rent_incl")
-    private boolean rentIncl;
+    private Boolean rentIncl;
     @Column("sqm")
-    private int sqm;
+    private Integer sqm;
     @Column("postal_code")
     private String postalCode;
     public enum TypeEnum {

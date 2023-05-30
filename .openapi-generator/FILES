@@ -8,6 +8,7 @@ src/main/java/nl/dsh/api/dao/MessageFrom.java
 src/main/java/nl/dsh/api/dao/MessageProperty.java
 src/main/java/nl/dsh/api/dao/PostMessageRequest.java
 src/main/java/nl/dsh/api/dao/Property.java
+src/main/java/nl/dsh/api/dao/PropertyDetails.java
 src/main/java/nl/dsh/api/dao/Stats.java
 src/main/java/nl/dsh/api/interfaces/AccountApi.java
 src/main/java/nl/dsh/api/interfaces/ApiUtil.java
