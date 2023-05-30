@@ -2,8 +2,10 @@ package nl.dsh.api.configuration;
 
 import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
 import io.r2dbc.postgresql.PostgresqlConnectionFactory;
+import io.r2dbc.postgresql.codec.EnumCodec;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import nl.dsh.api.models.Property;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
@@ -36,6 +38,9 @@ public class R2DBCConfiguration extends AbstractR2dbcConfiguration {
         String host = Optional.ofNullable(System.getenv("DSH_HOST")).filter(not(String::isEmpty)).orElse("localhost");
         log.info(String.format("conn: %s@%s:%d/%s", usr, host, port, db));
         return new PostgresqlConnectionFactory(PostgresqlConnectionConfiguration.builder()
+                .codecRegistrar(EnumCodec.builder()
+                        .withEnum("prop_type", Property.TypeEnum.class)
+                        .build())
                 .host(host)
                 .port(port)
                 .username(usr)
