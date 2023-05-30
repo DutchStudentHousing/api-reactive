@@ -22,4 +22,6 @@ public class KnownValues {
     int minSqm;
     @Column("maxSqm")
     int maxSqm;
+    @Column("propertyCount")
+    long propertyCount;
 }

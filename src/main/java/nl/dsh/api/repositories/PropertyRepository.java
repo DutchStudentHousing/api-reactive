@@ -27,7 +27,7 @@ public class PropertyRepository {
     }
 
     public Flux<Property> findAllBy(PropertyFilter filter, Pageable pageable) {
-        float distance = filter.distance.orElse(11.11f)/111.1f; // default to 100m accuracy?
+        float distance = filter.distance.orElse(.1111f)/111.1f; // default to 100m accuracy?
 
         Criteria search = Criteria.empty();
         if(filter.maxRent.isPresent() || filter.minRent.isPresent())
