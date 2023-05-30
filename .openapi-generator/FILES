@@ -1,4 +1,3 @@
-README.md
 pom.xml
 src/main/java/nl/dsh/api/dao/Account.java
 src/main/java/nl/dsh/api/dao/KnownvaluesGet200Response.java

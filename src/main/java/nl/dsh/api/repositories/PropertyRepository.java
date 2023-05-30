@@ -2,18 +2,12 @@ package nl.dsh.api.repositories;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.models.Property;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 
 @Repository
 @Slf4j
@@ -50,4 +44,12 @@ public class PropertyRepository {
                         .with(pageable)
                 ).all();
     }
+
+//    public Mono<KnownValues> findValues() {
+//        Query q = Query.empty();
+//        q.columns(SqlIdentifier.unquoted("MIN(rent) AS minRent"));
+//        q.columns(SqlIdentifier.unquoted("MAX(rent) AS maxRent"));
+//
+//        return entityOperations.selectOne(q, KnownValues.class);
+//    }
 }
