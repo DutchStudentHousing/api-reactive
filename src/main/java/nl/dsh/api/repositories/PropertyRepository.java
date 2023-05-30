@@ -14,9 +14,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Repository
 @Slf4j
@@ -29,7 +27,7 @@ public class PropertyRepository {
     }
 
     public Flux<Property> findAllBy(PropertyFilter filter, Pageable pageable) {
-        float distance = filter.distance.orElse(11.11f)/111.1f; // default to 100m accuracy?
+        float distance = filter.distance.orElse(.1111f)/111.1f; // default to 100m accuracy?
 
         Criteria search = Criteria.empty();
         if(filter.maxRent.isPresent() || filter.minRent.isPresent())
@@ -98,7 +96,7 @@ public class PropertyRepository {
                                 .gender(row.get("gender", PropertyMatch.GenderType.class))
                                 .minAge(row.get("age_min", Long.class))
                                 .maxAge(row.get("age_max", Long.class))
-                                .matchStatus(row.get("match_status", List.class))
+                                .matchStatus(row.get("match_status", PropertyMatch.MatchStatusType[].class))
                                 .build())
                         .build()
                 ).first();

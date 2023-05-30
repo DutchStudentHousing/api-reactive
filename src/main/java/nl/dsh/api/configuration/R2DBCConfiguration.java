@@ -6,6 +6,8 @@ import io.r2dbc.postgresql.codec.EnumCodec;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.models.Property;
+import nl.dsh.api.models.PropertyDetails;
+import nl.dsh.api.models.PropertyMatch;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
@@ -40,6 +42,11 @@ public class R2DBCConfiguration extends AbstractR2dbcConfiguration {
         return new PostgresqlConnectionFactory(PostgresqlConnectionConfiguration.builder()
                 .codecRegistrar(EnumCodec.builder()
                         .withEnum("prop_type", Property.TypeEnum.class)
+                        .withEnum("gender_roommates_type", PropertyDetails.GenderRoomMatesType.class)
+                        .withEnum("furnished_type", PropertyDetails.FurnishedType.class)
+                        .withEnum("energy_label_type", PropertyDetails.EnergyLabelType.class)
+                        .withEnum("gender_match_type", PropertyMatch.GenderType.class)
+                        .withEnum("match_status_type", PropertyMatch.MatchStatusType.class)
                         .build())
                 .host(host)
                 .port(port)
