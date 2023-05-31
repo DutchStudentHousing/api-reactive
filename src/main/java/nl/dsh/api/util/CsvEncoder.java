@@ -39,7 +39,7 @@ public class CsvEncoder<T> implements Encoder<T> {
                 PostMessageRequest.class,
                 Property.class,
                 Stats.class,
-                KnownvaluesGet200Response.class
+                GetKnownValues200Response.class
         });
         mapper = CsvMapper.builder()
                 .enable(CsvGenerator.Feature.ALWAYS_QUOTE_EMPTY_STRINGS)

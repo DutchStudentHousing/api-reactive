@@ -1,6 +1,6 @@
 package nl.dsh.api.controllers;
 
-import nl.dsh.api.dao.KnownvaluesGet200Response;
+import nl.dsh.api.dao.GetKnownValues200Response;
 import nl.dsh.api.interfaces.KnownvaluesApi;
 import nl.dsh.api.services.KnownValuesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class KnownValuesController implements KnownvaluesApi {
     }
 
     @Override
-    public Mono<ResponseEntity<KnownvaluesGet200Response>> knownvaluesGet(ServerWebExchange exchange) {
+    public Mono<ResponseEntity<GetKnownValues200Response>> getKnownValues(ServerWebExchange exchange) {
         return svc.getKnownValues().map(ResponseEntity::ok);
     }
 }
