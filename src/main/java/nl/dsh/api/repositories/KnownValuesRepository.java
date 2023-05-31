@@ -13,7 +13,8 @@ public interface KnownValuesRepository extends ReactiveCrudRepository<KnownValue
             "ARRAY(SELECT DISTINCT p.city FROM property p) AS cities, "+
             "MIN(p.sqm) AS minSqm, "+
             "MAX(p.sqm) AS maxSqm, "+
-            "COUNT(p.property_id) AS propertyCount " +
+            "COUNT(p.property_id) AS propertyCount, " +
+            "ARRAY(SELECT column_name::TEXT FROM information_schema.columns WHERE table_name='property') AS sortableColumns " +
             "FROM property p LIMIT 1")
     Mono<KnownValues> getKnownValues();
 }

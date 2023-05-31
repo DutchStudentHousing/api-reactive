@@ -24,4 +24,6 @@ public class KnownValues {
     int maxSqm;
     @Column("propertyCount")
     long propertyCount;
+    @Column("sortableColumns")
+    List<String> sortableColumns;
 }
