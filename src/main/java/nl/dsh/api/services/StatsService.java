@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import nl.dsh.api.dao.Stats;
 import nl.dsh.api.repositories.StatsRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,6 +20,7 @@ public class StatsService {
         return repo.getStats().map(it -> mapper.map(it, Stats.class));
     }
 
+    @PreAuthorize("hasRole('admin')")
     public Mono<Stats> getStatsByCity(String city) {
        return repo.getStatsByCity(city).map(it -> mapper.map(it, Stats.class));
     }

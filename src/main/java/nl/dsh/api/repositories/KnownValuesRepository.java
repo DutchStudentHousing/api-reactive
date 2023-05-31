@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface KnownValuesRepository extends ReactiveCrudRepository<KnownValues, Object> {
+public interface KnownValuesRepository extends ReactiveCrudRepository<KnownValues, Void> {
     @Query(value="SELECT MIN(p.rent) AS minRent, "+
             "MAX(p.rent) AS maxRent, "+
             "ARRAY(SELECT DISTINCT p.city FROM property p) AS cities, "+
