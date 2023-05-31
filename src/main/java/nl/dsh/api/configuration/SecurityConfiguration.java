@@ -50,7 +50,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http
+        http.cors().and()
 //                .authorizeExchange(spec -> {
 ////                    spec.pathMatchers(HttpMethod.GET, "/propert**").permitAll();
 ////                    spec.pathMatchers(HttpMethod.GET, "/knownvalues").permitAll();
