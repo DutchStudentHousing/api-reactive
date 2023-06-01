@@ -25,7 +25,7 @@ public class AccountController implements AccountApi {
     }
 
     @Override
-    public Mono<ResponseEntity<String>> login(Mono<LoginRequest> loginRequest, ServerWebExchange exchange) {
+    public Mono<ResponseEntity<Login200Response>> login(Mono<LoginRequest> loginRequest, ServerWebExchange exchange) {
         return loginRequest
                 .flatMap(svc::getLoginResponse)
                 .map(ResponseEntity::ok)
