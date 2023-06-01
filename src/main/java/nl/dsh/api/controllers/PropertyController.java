@@ -1,6 +1,6 @@
 package nl.dsh.api.controllers;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import nl.dsh.api.dao.Property;
 import nl.dsh.api.dao.PropertyDetails;
 import nl.dsh.api.interfaces.PropertyApi;
@@ -11,7 +11,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PropertyController implements PropertyApi {
     private final PropertyService svc;
 
