@@ -20,7 +20,7 @@ public class StatsService {
         return repo.getStats().map(it -> mapper.map(it, Stats.class));
     }
 
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('ADMIN')")
     public Mono<Stats> getStatsByCity(String city) {
        return repo.getStatsByCity(city).map(it -> mapper.map(it, Stats.class));
     }

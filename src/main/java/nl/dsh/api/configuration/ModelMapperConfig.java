@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +19,8 @@ public class ModelMapperConfig {
     public ModelMapper mapper(){
         ModelMapper mapper = new ModelMapper();
         // mappings for properties as it struggles with those
-        final Converter<LocalDateTime, LocalDate> dateConverter = ctx ->
-                LocalDate.from(ctx.getSource());
+        final Converter<LocalDateTime, String> dateConverter = ctx ->
+                ctx.getSource().toString();
         final Converter<nl.dsh.api.models.Property.TypeEnum, Property.TypeEnum> typeEnumConverter = ctx ->
                 Property.TypeEnum.fromValue((ctx.getSource() != null) ?
                         ctx.getSource().name()

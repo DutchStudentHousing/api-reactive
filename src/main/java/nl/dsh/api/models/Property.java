@@ -53,4 +53,7 @@ public class Property {
     @Column("type")
     @Enumerated(EnumType.STRING)
     private TypeEnum type;
+
+    @Column("rent_per_sqm")
+    private Float rentPerSqm;
 }

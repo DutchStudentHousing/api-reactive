@@ -35,7 +35,7 @@ public class PropertyRepository {
                     filter.minRent.orElse(Float.NEGATIVE_INFINITY),
                     filter.maxRent.orElse(Float.POSITIVE_INFINITY)));
         if(filter.city.isPresent())
-            search = search.and(Criteria.where("city").like(filter.city.get()));
+            search = search.and(Criteria.where("city").in(filter.city.get()));
         if(filter.lat.isPresent() || filter._long.isPresent())
             search = search.and(Criteria.where("lat").between(
                     filter.lat.orElse(Float.NEGATIVE_INFINITY)-distance,

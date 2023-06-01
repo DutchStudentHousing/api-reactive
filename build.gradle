@@ -41,7 +41,6 @@ dependencies {
 	implementation 'com.fasterxml.woodstox:woodstox-core'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//	runtimeOnly 'org.postgresql:postgresql'
 	implementation 'org.postgresql:r2dbc-postgresql:1.0.1.RELEASE'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'

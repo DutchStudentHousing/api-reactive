@@ -1,6 +1,7 @@
 package nl.dsh.api.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import reactor.core.publisher.Mono;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityContextRepository implements ServerSecurityContextRepository {
     private final AuthenticationManager authMgr;
 
@@ -26,6 +28,7 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
         return Mono.justOrEmpty(exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION))
                 .filter(authHdr -> authHdr.startsWith("Bearer "))
                 .flatMap(authHdr -> {
+                    log.info(authHdr);
                     String authToken = authHdr.substring(7);
                     Authentication auth = new UsernamePasswordAuthenticationToken(authToken, authToken);
                     return this.authMgr.authenticate(auth).map(SecurityContextImpl::new);
