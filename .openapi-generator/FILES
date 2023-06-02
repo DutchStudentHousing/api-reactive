@@ -1,13 +1,13 @@
 pom.xml
 src/main/java/nl/dsh/api/dao/Account.java
 src/main/java/nl/dsh/api/dao/GetKnownValues200Response.java
-src/main/java/nl/dsh/api/dao/Login200Response.java
 src/main/java/nl/dsh/api/dao/LoginRequest.java
 src/main/java/nl/dsh/api/dao/Message.java
 src/main/java/nl/dsh/api/dao/PostMessageRequest.java
 src/main/java/nl/dsh/api/dao/Property.java
 src/main/java/nl/dsh/api/dao/PropertyDetails.java
 src/main/java/nl/dsh/api/dao/Stats.java
+src/main/java/nl/dsh/api/dao/Token.java
 src/main/java/nl/dsh/api/interfaces/AccountApi.java
 src/main/java/nl/dsh/api/interfaces/ApiUtil.java
 src/main/java/nl/dsh/api/interfaces/KnownvaluesApi.java

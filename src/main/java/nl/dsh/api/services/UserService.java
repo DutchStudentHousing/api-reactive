@@ -3,6 +3,7 @@ package nl.dsh.api.services;
 import lombok.RequiredArgsConstructor;
 import nl.dsh.api.dao.Login200Response;
 import nl.dsh.api.dao.LoginRequest;
+import nl.dsh.api.dao.Token;
 import nl.dsh.api.models.User;
 import nl.dsh.api.repositories.UserRepository;
 import nl.dsh.api.security.JWT;
@@ -22,9 +23,9 @@ public class UserService implements ReactiveUserDetailsService {
         return repo.findFirstByEmail(username).cast(UserDetails.class);
     }
 
-    public Mono<Login200Response> getLoginResponse(LoginRequest req) {
+    public Mono<Token> getLoginResponse(LoginRequest req) {
         return repo.findByEmailAndPassword(req.getEmail(), req.getPassword())
                 .map(jwt::genToken)
-                .map(token -> new Login200Response().token(token));
+                .map(token -> new Token().token(token));
     }
 }

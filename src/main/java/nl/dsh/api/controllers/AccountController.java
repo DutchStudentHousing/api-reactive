@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.dao.Account;
 import nl.dsh.api.dao.Login200Response;
 import nl.dsh.api.dao.LoginRequest;
+import nl.dsh.api.dao.Token;
 import nl.dsh.api.interfaces.AccountApi;
 import nl.dsh.api.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AccountController implements AccountApi {
     }
 
     @Override
-    public Mono<ResponseEntity<Login200Response>> login(Mono<LoginRequest> loginRequest, ServerWebExchange exchange) {
+    public Mono<ResponseEntity<Token>> login(Mono<LoginRequest> loginRequest, ServerWebExchange exchange) {
         return loginRequest
                 .flatMap(svc::getLoginResponse)
                 .map(ResponseEntity::ok)
