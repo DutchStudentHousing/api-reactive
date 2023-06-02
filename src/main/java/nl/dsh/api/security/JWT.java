@@ -32,6 +32,7 @@ public class JWT {
     }
 
     public Claims getClaims(String token) {
+        if("null".equals(token)) return null;
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 
