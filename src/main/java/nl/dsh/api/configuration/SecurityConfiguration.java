@@ -53,7 +53,7 @@ public class SecurityConfiguration {
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers("/api/account/login").permitAll()
                 .pathMatchers(HttpMethod.GET,"/api/properties").permitAll()
-                .pathMatchers(HttpMethod.GET, "/api/property").permitAll()
+                .pathMatchers(HttpMethod.GET, "/api/property**").permitAll()
                 .pathMatchers("/api/knownvalues").permitAll()
                 .anyExchange().authenticated()
                 .and().build();
