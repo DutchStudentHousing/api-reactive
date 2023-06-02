@@ -35,7 +35,6 @@ public class CsvEncoder<T> implements Encoder<T> {
                 Login200Response.class,
                 LoginRequest.class,
                 Message.class,
-                MessageFrom.class,
                 PostMessageRequest.class,
                 Property.class,
                 Stats.class,

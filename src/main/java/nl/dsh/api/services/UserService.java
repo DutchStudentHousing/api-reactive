@@ -22,8 +22,9 @@ public class UserService implements ReactiveUserDetailsService {
         return repo.findFirstByEmail(username).cast(UserDetails.class);
     }
 
-    public Mono<String> getLoginResponse(LoginRequest req) {
+    public Mono<Login200Response> getLoginResponse(LoginRequest req) {
         return repo.findByEmailAndPassword(req.getEmail(), req.getPassword())
-                .map(jwt::genToken);
+                .map(jwt::genToken)
+                .map(token -> new Login200Response().token(token));
     }
 }

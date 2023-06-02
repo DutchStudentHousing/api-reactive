@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.ReactivePageableHandlerMethodArgumentResolver;
 import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurationSupport;
 import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer;
 
@@ -32,5 +33,10 @@ public class WebConfig extends WebFluxConfigurationSupport {
     public void configureHttpMessageCodecs(ServerCodecConfigurer configurer) {
         configurer.customCodecs().register(propertyCsvEncoder);
         configurer.customCodecs().register(messageCsvEncoder);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowedHeaders("*");
     }
 }
