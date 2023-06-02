@@ -1,7 +1,6 @@
 package nl.dsh.api.services;
 
 import lombok.RequiredArgsConstructor;
-import nl.dsh.api.dao.Login200Response;
 import nl.dsh.api.dao.LoginRequest;
 import nl.dsh.api.dao.Token;
 import nl.dsh.api.models.User;

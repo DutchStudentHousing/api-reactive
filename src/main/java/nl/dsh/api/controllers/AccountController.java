@@ -3,7 +3,6 @@ package nl.dsh.api.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.dsh.api.dao.Account;
-import nl.dsh.api.dao.Login200Response;
 import nl.dsh.api.dao.LoginRequest;
 import nl.dsh.api.dao.Token;
 import nl.dsh.api.interfaces.AccountApi;

@@ -32,7 +32,7 @@ public class CsvEncoder<T> implements Encoder<T> {
     public CsvEncoder() {
         compatibleTypes = List.of(new Class<?>[]{
                 Account.class,
-                Login200Response.class,
+                Token.class,
                 LoginRequest.class,
                 Message.class,
                 PostMessageRequest.class,
