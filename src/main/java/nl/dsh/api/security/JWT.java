@@ -14,6 +14,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -52,6 +53,7 @@ public class JWT {
     }
 
     public Boolean validateToken(String token) {
-        return !getClaims(token).getExpiration().before(new Date());
+        Optional<Claims> claims = Optional.ofNullable(getClaims(token));
+        return claims.map(Claims::getExpiration).map(e -> e.after(new Date())).orElse(false);
     }
 }
