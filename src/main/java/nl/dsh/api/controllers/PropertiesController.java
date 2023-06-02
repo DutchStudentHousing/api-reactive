@@ -36,6 +36,7 @@ public class PropertiesController implements PropertiesApi {
                                                               final ServerWebExchange exchange,
                                                               final Pageable pageable) {
         log.info("GET /properties");
+        log.info(city.toString());
         Flux<Property> properties = svc.listProperties(new PropertyFilter(city, min, max, lat, _long, distance), pageable);
         return properties.hasElements().map(it -> {
             if(it) return ResponseEntity.ok(properties);
